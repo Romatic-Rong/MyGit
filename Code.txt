@@ -1,0 +1,7 @@
+-- 创建自增复习计数的函数
+CREATE OR REPLACE FUNCTION increment_review_count(card_id BIGINT)
+RETURNS void AS $$
+BEGIN
+  UPDATE cards SET review_count = COALESCE(review_count, 0) + 1 WHERE id = card_id;
+END;
+$$ LANGUAGE plpgsql;

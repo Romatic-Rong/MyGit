@@ -7,3 +7,10 @@ Desktop.ini
 .idea/
 *.swp
 *.swo
+
+# Next.js
+.next/
+node_modules/
+
+# Env
+.env.local
