@@ -2,17 +2,20 @@
   "name": "ai-flashcards",
   "version": "0.1.0",
   "private": true,
+  "main": "electron.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "electron:dev": "concurrently \"npm run dev\" \"cross-env NODE_ENV=development npx electron .\"",
+    "electron:build": "next build && electron-builder --win portable",
+    "electron:build:installer": "next build && electron-builder --win nsis"
   },
   "dependencies": {
-    
     "@supabase/ssr": "^0.5.0",
     "@supabase/supabase-js": "^2.49.0",
-        "next": "^16.2.9",
+    "next": "^16.2.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -21,7 +24,34 @@
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "concurrently": "^10.0.3",
+    "cross-env": "^10.1.0",
+    "electron": "^42.5.0",
+    "electron-builder": "^26.15.3",
     "tailwindcss": "^4.0.0",
-    "typescript": "^5.7.0"
+    "typescript": "^5.7.0",
+    "wait-on": "^9.0.10"
+  },
+  "build": {
+    "appId": "com.ai-flashcards.app",
+    "productName": "AI Flashcards",
+    "asar": false,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      ".next/**/*",
+      "public/**/*",
+      "electron.js",
+      "server.js",
+      "package.json",
+      "next.config.ts",
+      "node_modules/**/*",
+      ".env.local"
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "public/icon.svg"
+    }
   }
 }
