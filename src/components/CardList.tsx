@@ -17,11 +17,11 @@ export function CardList({ cards }: { cards: Card[] }) {
   }
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2">
+    <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
       {cards.map((card) => (
         <div
           key={card.id}
-          className="p-5 rounded-2xl bg-surface border border-border hover:border-primary/30 transition-colors space-y-3"
+          className="p-4 sm:p-5 rounded-2xl bg-surface border border-border hover:border-primary/30 transition-colors space-y-2 sm:space-y-3"
         >
           <div className="flex items-start justify-between">
             <h2 className="font-bold text-lg">{card.title}</h2>

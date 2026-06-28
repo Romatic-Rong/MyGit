@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useToast } from "./Toast";
 
 // 打字机效果 hook
 function useTypewriter(text: string, speed = 30) {
@@ -38,6 +39,7 @@ export function CardGenerator() {
   const [error, setError] = useState("");
   const [streamingText, setStreamingText] = useState("");
   const [category, setCategory] = useState("通用");
+  const toast = useToast();
   const typedExplanation = useTypewriter(streamingText, 20);
 
   const categories = [
@@ -82,12 +84,12 @@ export function CardGenerator() {
   return (
     <div className="w-full max-w-2xl space-y-6">
       {/* 分类标签 */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-1.5">
         {categories.map((cat) => (
           <button
             key={cat.name}
             onClick={() => setCategory(cat.name)}
-            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+            className={`px-2.5 py-1.5 rounded-full text-[12px] font-medium transition-all ${
               category === cat.name
                 ? "bg-primary text-white"
                 : "bg-surface-2 text-text-muted border border-border hover:border-primary/50 hover:text-text"
@@ -150,8 +152,8 @@ export function CardGenerator() {
 
       {/* 卡片结果 */}
       {card && (
-        <div className="rounded-2xl bg-surface border border-border overflow-hidden animate-in fade-in slide-in-from-bottom-4">
-          <div className="p-6 space-y-5">
+        <div className="rounded-2xl bg-surface border border-border overflow-hidden">
+          <div className="p-4 sm:p-6 space-y-4 sm:space-y-5">
             {/* 标题 */}
             <div className="flex items-start justify-between">
               <h2 className="text-xl font-bold">{card.title}</h2>
@@ -198,7 +200,7 @@ export function CardGenerator() {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({ ...card, topic: input.trim() }),
-                }).then(r => r.ok ? alert("已保存到数据库！") : alert("保存失败，请重试"));
+                }).then(r => r.ok ? toast.show("已保存到数据库！") : toast.show("保存失败，请重试"));
               }}
             >
               💾 保存
@@ -208,7 +210,7 @@ export function CardGenerator() {
               onClick={() => {
                 navigator.clipboard.writeText(
                   `【${card.title}】\n${card.explanation}\n\n记忆口诀：${card.mnemonic}\n\n相关：${card.related.join("、")}`
-                ).then(() => alert("已复制到剪贴板"));
+                ).then(() => toast.show("已复制到剪贴板"));
               }}
             >
               📋 复制

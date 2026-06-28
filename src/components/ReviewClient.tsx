@@ -80,7 +80,7 @@ export function ReviewClient({ cards }: { cards: Card[] }) {
 
       {/* 卡片 */}
       <div
-        className="relative rounded-2xl bg-surface border border-border p-8 min-h-[300px] cursor-pointer select-none transition-all hover:border-primary/30"
+        className="relative rounded-2xl bg-surface border border-border p-5 sm:p-8 min-h-[240px] sm:min-h-[300px] cursor-pointer select-none transition-all hover:border-primary/30"
         onClick={() => !rating && setFlipped(!flipped)}
       >
         {!flipped ? (
@@ -121,24 +121,18 @@ export function ReviewClient({ cards }: { cards: Card[] }) {
 
       {/* 评分按钮 — 翻面后出现 */}
       {flipped && !rating && (
-        <div className="flex gap-3 justify-center">
-          <button
-            onClick={() => handleRate(0)}
-            className="px-5 py-3 rounded-xl bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-colors font-medium"
-          >
-            😵<br /><span className="text-xs">完全忘了</span>
+        <div className="flex gap-2 justify-center">
+          <button onClick={() => handleRate(0)}
+            className="flex-1 max-w-[100px] py-3 rounded-xl bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-colors font-medium text-xs sm:text-sm text-center">
+            😵<br/>忘了
           </button>
-          <button
-            onClick={() => handleRate(3)}
-            className="px-5 py-3 rounded-xl bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 hover:bg-yellow-500/20 transition-colors font-medium"
-          >
-            🤔<br /><span className="text-xs">有点困难</span>
+          <button onClick={() => handleRate(3)}
+            className="flex-1 max-w-[100px] py-3 rounded-xl bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 hover:bg-yellow-500/20 transition-colors font-medium text-xs sm:text-sm text-center">
+            🤔<br/>困难
           </button>
-          <button
-            onClick={() => handleRate(5)}
-            className="px-5 py-3 rounded-xl bg-green-500/10 text-green-400 border border-green-500/20 hover:bg-green-500/20 transition-colors font-medium"
-          >
-            😎<br /><span className="text-xs">轻松回忆</span>
+          <button onClick={() => handleRate(5)}
+            className="flex-1 max-w-[100px] py-3 rounded-xl bg-green-500/10 text-green-400 border border-green-500/20 hover:bg-green-500/20 transition-colors font-medium text-xs sm:text-sm text-center">
+            😎<br/>轻松
           </button>
         </div>
       )}
